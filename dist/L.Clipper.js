@@ -1,6 +1,5 @@
 /*global L:true, ClipperLib:true */
 L.Clipper = L.Evented.extend({
-    //includes: L.Mixin.Events, // Deprecated ...
 
     options: {
     	//featureGroup: new L.FeatureGroup(),

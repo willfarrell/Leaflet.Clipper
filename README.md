@@ -3,11 +3,14 @@ Allows Union, Difference, Xor, and Intersection operations on two polygons. This
 
 ## Install
 You'll need:
-- `leaflet`: `>=1.0.0`
+- `leaflet`: `>=1.1.0`
 - `clipper-lib`: `^6.2.1`
-- `leaflet-clipper`: `^1.0.0` That's this library.
+- `leaflet-clipper`: `^1.1.0` That's this library.
 
-## Quick Start
+Need to run with an older version? Let me know, there was a breaking change regarding [Mixin.Events](https://github.com/Leaflet/Leaflet/issues/2280). Easy to modify.
+
+## [Demo](https://willfarrell.github.io/Leaflet.Clipper)
+## Usage
 
 ```javascript
 var map = ...
@@ -21,14 +24,11 @@ var drawState = new L.Clipper.OR( map, {
     }
 } );
 drawState.enable();
+drawState.disable();
 ```
-
-## Examples
-- [Simple]()
 
 
 ## TODO
-- [ ] npm
 - [ ] bower
 - [ ] Leaflet.draw integration
 - [ ] Leaflet.Editable integration

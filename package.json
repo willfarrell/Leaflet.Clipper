@@ -1,9 +1,42 @@
 {
+  "name": "leaflet-clipper",
+  "version": "1.1.0",
+  "description": "Allows Union, Difference, Xor, and Intersection operations on two polygons.",
+  "keywords": [
+    "leaflet",
+    "polygon",
+    "clipper",
+    "union",
+    "difference",
+    "intersection"
+  ],
+  "homepage":"https://willfarrell.github.io/Leaflet.Clipper",
+  "bugs": {
+    "url": "https://github.com/willfarrell/Leaflet.Clipper/issues"
+  },
+  "license": "MIT",
+  "author": "will Farrell <iam@willfarrell.ca>",
+  "files":["dist","svg"],
+  "main": "dist/L.Clipper.min.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:willfarrell/Leaflet.Clipper.git"
+  },
   "scripts": {
-    "build":"cp src/Leaflet.Clipper.js example/js/"
+    "example-setup":"cp src/Leaflet.Clipper.js example/js/L.Clipper.js",
+    "lint": "eslint ./src/",
+    "build-setup":"rm -rf dist && mkdir -p dist",
+    "build-js": "cp src/Leaflet.Clipper.js dist/L.Clipper.js",
+    "compress": "uglifyjs ./dist/L.Clipper.js -o ./dist/L.Clipper.min.js -m --comments",
+    "build": "npm run lint && npm run build-setup && npm run build-js && npm run compress && npm run example-setup",
+    "release": "git push origin master && git checkout gh-pages && git merge master && git push origin gh-pages && git checkout master && npm publish"
   },
   "dependencies": {
-    "clipper-lib": "^6.2.1",
-    "leaflet": "^1.1.0"
+    "clipper-lib": "^6.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.3.0",
+    "leaflet": "^1.1.0",
+    "uglify-js": "^3.0.25"
   }
 }
