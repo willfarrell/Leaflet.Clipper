@@ -27,9 +27,11 @@ drawState.enable();
 drawState.disable();
 ```
 
-
 ## TODO
 - [ ] bower
 - [ ] Leaflet.draw integration
 - [ ] Leaflet.Editable integration
 - [ ] Extend functionality to circles
+
+## Credits
+- Original version written for [MyMobileCoverage](http://www.mymobilecoverage.com/)
