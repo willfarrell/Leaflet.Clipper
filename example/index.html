@@ -1,0 +1,114 @@
+<html>
+<head>
+    <title>Leaflet.Clipper</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/1.1.0/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div id="map"></div>
+<div id="controls">
+    <div class="wrapper">
+        <h2>L.Clipper</h2>
+        <a class="github-button" href="https://github.com/willfarrell/Leaflet.Clipper" data-count-href="/w8r/Leaflet.Clipper/stargazers" data-count-api="/repos/w8r/Leaflet.Clipper#stargazers_count">Star</a>
+        <a class="github-button" href="https://github.com/willfarrell/Leaflet.Clipper" data-count-href="/w8r/Leaflet.Clipper/network" data-count-api="/repos/w8r/Leaflet.Clipper#forks_count">Fork</a>
+        <p>
+            1. Choose operation:<br>
+            <button id="AND" onclick="changeMethod('AND')"><img title="AND / Intersection" src="svg/AND.svg" width="15px"></button>
+            <button id="OR" onclick="changeMethod('OR')"><img title="OR / Union" src="svg/OR.svg" width="15px"></button>
+            <button id="XOR" onclick="changeMethod('XOR')"><img title="XOR" src="svg/XOR.svg" width="15px"></button>
+            <button id="NOT" onclick="changeMethod('NOT')"><img title="NOT / Difference" src="svg/NOT.svg" width="15px"></button>
+            <br>
+            2. Click `Source` polygon.<br>
+            3. Click `Clipper` polygon.<br>
+            <br>
+            Hit refresh to reset.
+            <br><br>
+            <a href="//github.com/willfarrell/Leaflet.Clipper/">Documentation</a>
+        </p>
+
+    </div>
+</div>
+<script src="https://npmcdn.com/leaflet@1.1.0/dist/leaflet.js"></script>
+
+<script src="js/clipper.js"></script>
+<script src="js/Leaflet.Clipper.js"></script>
+
+<script>
+var tileUrl = 'http://{s}.tile.openstreetmap.ca/{z}/{x}/{y}.png';
+var tileLayer = L.tileLayer(tileUrl, {
+
+    maxZoom: 20,
+    attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a>'
+});
+var startPoint = [51.0486, -114.0708];
+var map = L.map('map', {
+    dragging: false,
+    zoomControl: false,
+    doubleClickZoom: false,
+    scrollWheelZoom: false,
+    layers: [tileLayer]
+}).setView(startPoint, 16);
+
+var editableLayers = new L.FeatureGroup();
+map.addLayer(editableLayers);
+
+// samples
+var polygonA = L.polygon([
+    [
+        [
+            [51.0496, -114.0718],
+            [51.0496, -114.0698],
+            [51.0476, -114.0698],
+            [51.0476, -114.0718],
+            [51.0496, -114.0718]
+        ]
+    ]
+]).addTo(editableLayers);
+
+var polygonB =L.polygon([
+    [
+        [
+            [51.0496, -114.0728],
+            [51.0496, -114.0708],
+            [51.0476, -114.0708],
+            [51.0476, -114.0728],
+            [51.0496, -114.0728]
+        ],
+        [
+            [51.0494, -114.0726],
+            [51.0478, -114.0726],
+            [51.0478, -114.0710],
+            [51.0494, -114.0710],
+            [51.0494, -114.0726]
+        ]
+    ]
+]).addTo(editableLayers);
+
+var drawState = null;
+function changeMethod(method) {
+    var drawState = new L.Clipper[method]( map, {
+        featureGroup: editableLayers,
+        selectedPathOptions: {
+            color: '#FF3399'
+        }
+    } );
+    drawState.enable();
+
+    resetButtons();
+    document.getElementById(method).style.borderStyle = 'inset';
+}
+
+function resetButtons() {
+    ['AND','OR','XOR','NOT'].map(function(method) {
+        document.getElementById(method).style.borderStyle = 'outset';
+    });
+}
+</script>
+
+<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "build":"cp src/Leaflet.Clipper.js example/js/"
+  },
+  "dependencies": {
+    "clipper-lib": "^6.2.1",
+    "leaflet": "^1.1.0"
+  }
+}
