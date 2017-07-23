@@ -28,7 +28,6 @@ drawState.disable();
 ```
 
 ## TODO
-- [ ] bower
 - [ ] Add back in tooltip support
 - [ ] Leaflet.draw integration
 - [ ] Leaflet.Editable integration
